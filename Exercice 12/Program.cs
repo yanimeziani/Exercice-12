@@ -3,28 +3,35 @@ namespace Exercice12
 {
     class Program
     {
-        const string excerpt = "       La ou nous vivions jadis, il n’y avait ni autos, ni taxis, ni autobus : nous allions parfois, mon cousin m’accompagnait, voir Linda qui habitait dans un canton voisin.  ";
+        const string excerpt = "La ou nous vivions jadis, il n’y avait ni autos, ni taxis, ni autobus : nous allions parfois, mon cousin m’accompagnait, voir Linda qui habitait dans un canton voisin.";
 
         public static void Main(string[] args)
         {
 
             // Boucle For
             // Calculer le nombre de "a"
-            Console.WriteLine($"Nombre de A : {NumberOfLettersInStringFor(excerpt, 'a')}");
+            Console.WriteLine($"Nombre de a : {NumberOfLettersInStringFor(excerpt, 'a')}");
             // Calculer le nombre de "e"
-            Console.WriteLine($"Nombre de E : {NumberOfLettersInStringFor(excerpt, 'e')}");
+            Console.WriteLine($"Nombre de e : {NumberOfLettersInStringFor(excerpt, 'e')}");
 
             // Boucle While
             // Calculer le nombre de "a"
-            Console.WriteLine($"Nombre de A : {NumberOfLettersInStringWhile(excerpt, 'a')}");
+            Console.WriteLine($"Nombre de a : {NumberOfLettersInStringWhile(excerpt, 'a')}");
             // Calculer le nombre de "e"
-            Console.WriteLine($"Nombre de E : {NumberOfLettersInStringWhile(excerpt, 'e')}");
+            Console.WriteLine($"Nombre de e : {NumberOfLettersInStringWhile(excerpt, 'e')}");
 
-            // Fonction Encode
-            Console.WriteLine(Encode(excerpt, '-'));
+            // Fonction Encoder
+            Console.WriteLine(Encode("Allo", '+'));
+            Console.WriteLine(Encode("Hello World", '-'));
 
-            // Trim
-            Console.WriteLine(Trim("  test  "));
+            // Trim complet (inclut le trim start et trim end)
+            Console.WriteLine(Trim("  test   "));
+
+            // Extraire le nom d'utilisateur
+            Console.WriteLine(ExtractUsernameText("Yoda18"));
+            Console.WriteLine(ExtractUsernameText("Totoro43"));
+            Console.WriteLine(ExtractUsernameText("Tololo420"));
+            Console.WriteLine(ExtractUsernameText("Yamato2199"));
 
 
         }
@@ -81,16 +88,16 @@ namespace Exercice12
         public static string TrimStart(string input)
         {
             string output = "";
-            int i = 0;
-            while (i < input.Length)
+            int iteration = 0;
+            while (iteration < input.Length && output == "")
             {
-                if (input[i] != ' ')
+                if (input[iteration] != ' ')
                 {
-                    output = input.Substring(i);
-                    break;
-                } else
+                    output = input.Substring(iteration);
+                }
+                else
                 {
-                    i++;
+                    iteration++;
                 }
             }
             return output;
@@ -100,17 +107,35 @@ namespace Exercice12
         public static string TrimEnd(string input)
         {
             string output = "";
-            for (int i = input.Length - 1; i > 0; i--)
+            int iteration = input.Length - 1;
+            while (iteration > 0 && output == "")
             {
-                if (input[i] != ' ')
+                if (input[iteration] != ' ')
                 {
-                    output = input.Substring(0, i+1);
-                    break;
+                    output = input.Substring(0, iteration+1);
+                }
+                else
+                {
+                    iteration--;
                 }
             }
             return output;
 
         }
+
+        public static string ExtractUsernameText(string input)
+        {
+            string output = "";
+            for(int i = 0; i < input.Length; i++)
+            {
+                if (!char.IsNumber(input[i]))
+                {
+                    output += input[i];
+                }
+            }
+            return output;
+        }
+
 
     }
 }
